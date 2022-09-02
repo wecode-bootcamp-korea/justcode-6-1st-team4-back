@@ -41,7 +41,7 @@ const createPosting = async (
     throw error;
   }
   // token 복호화
-  const user_id = jwt.verify(token, 'secretKey').user_id;
+  const user_id = jwt.verify(token, 'secretKey').userId;
 
   await postingDao.createPosting(
     classification,
@@ -74,7 +74,7 @@ const updatePosting = async (
 ) => {
   const stacks = stack.split(',');
   // token 복호화
-  const user_id = jwt.verify(token, 'secretKey').user_id;
+  const user_id = jwt.verify(token, 'secretKey').userId;
 
   await postingDao.updatePosting(
     user_id,
@@ -93,19 +93,23 @@ const updatePosting = async (
 };
 
 const deletePosting = async (token, posting_id) => {
-  const user_id = jwt.verify(token, 'secretKey').user_id;
+  const user_id = jwt.verify(token, 'secretKey').userId;
 
   await postingDao.deletePosting(user_id, posting_id);
 };
 
-const getOnePost = async (post_id) => {
-
+const getOnePost = async post_id => {
   return await postingDao.getOnePost(post_id);
-}
+};
 
 const getPostList = async (user_id, stacks) => {
-
   return await postingDao.getPostList(user_id, stacks);
-}
+};
 
-module.exports = { createPosting, updatePosting, deletePosting, getOnePost, getPostList };
+module.exports = {
+  createPosting,
+  updatePosting,
+  deletePosting,
+  getOnePost,
+  getPostList,
+};

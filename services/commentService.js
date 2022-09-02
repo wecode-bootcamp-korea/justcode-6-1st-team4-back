@@ -2,7 +2,7 @@ const commentDao = require('../models/commentDao');
 const jwt = require('jsonwebtoken');
 
 const createComment = async (token, posting_id, comment) => {
-  const user_id = jwt.verify(token, 'secretKey').user_id;
+  const user_id = jwt.verify(token, 'secretKey').userId;
   await commentDao.createComment(user_id, posting_id, comment);
 };
 
